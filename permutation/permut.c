@@ -1,9 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   permut.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/12 14:30:32 by emurillo          #+#    #+#             */
+/*   Updated: 2025/05/12 14:33:43 by emurillo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <stdio.h>
 #include <stdlib.h>
 
 // Fonction pour échanger deux caractères
-void swap(char *x, char *y)
+void	swap(char *x, char *y)
 {
     char temp = *x;
     *x = *y;
