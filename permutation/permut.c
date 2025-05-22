@@ -6,7 +6,7 @@
 /*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 14:30:32 by emurillo          #+#    #+#             */
-/*   Updated: 2025/05/12 14:33:43 by emurillo         ###   ########.fr       */
+/*   Updated: 2025/05/21 14:49:38 by emurillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,20 @@ void    print_tab(char **tab)
     }
 }
 
+int	free_double(char **tab)
+{
+	int i;
+
+	i = 0;
+	while (tab[i])
+	{
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
+	return (0);
+}
+
 int main(int argc, char **argv)
 {
     char **tab;
@@ -135,6 +149,7 @@ int main(int argc, char **argv)
         sort_tab(tab);
         print_tab(tab);
 	}
+	free_double(tab);
 	return (0);
 }
 
