@@ -6,7 +6,7 @@
 /*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 12:15:55 by emurillo          #+#    #+#             */
-/*   Updated: 2025/05/22 12:29:52 by emurillo         ###   ########.fr       */
+/*   Updated: 2025/05/22 16:44:55 by emurillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	sort_arr(char *arr, int len)
 	int		swapped;
 	char	tmp;
 
+	i = 0;
 	swapped = 1;
 	while (swapped)
 	{
@@ -25,7 +26,7 @@ void	sort_arr(char *arr, int len)
 		i = 0;
 		while (i < len - 1)
 		{
-			if (arr[i] > arr[i +1])
+			if (arr[i] > arr[i + 1])
 			{
 				tmp = arr[i];
 				arr[i] = arr[i + 1];
@@ -59,26 +60,28 @@ void	init_arr(int *arr, char *res, int len)
 	res[0] = '\0';
 }
 
-void	permutation(char *sorted, int *used, char *res, int len)
+void	permutation(char *sorted, int *used, char *res, int len, int pos)
 {
 	int	i;
 
 	i = 0;
-	if (ft_strlen(res) == len)
+	if (pos == len)
 	{
+		res[pos] = '\0';
 		puts(res);
 		return ;
 	}
 	while (i < len)
 	{
-		if (!used[i])
+		if (used[i] == 0)
 		{
-			res[ft_strlen(res)] = sorted[i];
-			used[i] = 1;
-			res[ft_strlen(res) + 1] = '\0';
-			permutation(sorted, used, res, len);
-			used[i] = 0;
-			res[ft_strlen(res) - 1] = '\0';
+			if (!(i > 0 && sorted[i] == sorted[i - 1] && used[i - 1] == 0))
+			{
+				res[pos] = sorted[i];
+				used[i] = 1;
+				permutation(sorted, used, res, len, pos + 1);
+				used[i] = 0;
+			}
 		}
 		i++;
 	}
@@ -95,6 +98,6 @@ int	main(int ac, char **av)
 	int	used[len];
 	char res[len + 1];
 	init_arr(used, res, len);
-	permutation(av[1], used, res, len);
+	permutation(av[1], used, res, len, 0);
 	return (0);
 }
