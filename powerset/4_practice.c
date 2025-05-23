@@ -6,7 +6,7 @@
 /*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 19:57:07 by emurillo          #+#    #+#             */
-/*   Updated: 2025/05/16 21:24:15 by emurillo         ###   ########.fr       */
+/*   Updated: 2025/05/23 16:03:59 by emurillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ void	print_subset(int *subset, int len)
 	free(copy);
 	printf("\n");
 }
+
 
 void powerset(int *set, int set_size, int n, int sum, int index, int *subset, int subset_size)
 {
