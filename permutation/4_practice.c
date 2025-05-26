@@ -1,31 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   3_practice.c                                       :+:      :+:    :+:   */
+/*   4_practice.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/23 14:36:32 by emurillo          #+#    #+#             */
-/*   Updated: 2025/05/26 13:15:16 by emurillo         ###   ########.fr       */
+/*   Created: 2025/05/26 13:13:32 by emurillo          #+#    #+#             */
+/*   Updated: 2025/05/26 13:20:42 by emurillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include <stdio.h>
 #include <stdlib.h>
 
-int	ft_strlen(char *str)
+int	ft_strlen(char *s)
 {
 	int	i;
 
 	i = 0;
-	while (str[i])
+	while (s[i])
 		i++;
 	return (i);
 }
 
 void	init_arr(int *arr, char *res, int len)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	while (i < len)
@@ -36,42 +37,17 @@ void	init_arr(int *arr, char *res, int len)
 	res[0] = '\0';
 }
 
-void	sort_str(char *str, int len)
-{
-	int	i;
-	int	swapped;
-	char tmp;
-
-	swapped = 1;
-	while (swapped)
-	{
-		swapped = 0;
-		i = 0;
-		while (i < len - 1)
-		{
-			if (str[i] > str[i + 1])
-			{
-				tmp = str[i];
-				str[i] = str[i + 1];
-				str[i + 1] = tmp;
-				swapped = 1;
-			}
-			i++;
-		}
-	}
-}
-
-void permutation(char *sorted, char *res, int *used, int len, int pos)
+void	permutation(char *sorted, int *used, char *res, int len, int pos)
 {
 	int	i;
 
-	if (pos == len)
+	i = 0;
+	if (len == pos)
 	{
 		res[pos] = '\0';
 		puts(res);
 		return ;
 	}
-	i = 0;
 	while (i < len)
 	{
 		if (used[i] == 0)
@@ -80,7 +56,7 @@ void permutation(char *sorted, char *res, int *used, int len, int pos)
 			{
 				res[pos] = sorted[i];
 				used[i] = 1;
-				permutation(sorted, res, used, len, pos + 1);
+				permutation(sorted, used, res, len, pos + 1);
 				used[i] = 0;
 			}
 		}
@@ -88,21 +64,47 @@ void permutation(char *sorted, char *res, int *used, int len, int pos)
 	}
 }
 
+void	sort_arr(char *arr, int len)
+{
+	int		i;
+	char	tmp;
+	int		swapped;
+
+	swapped = 1;
+	while (swapped)
+	{
+		swapped = 0;
+		i = 0;
+		while (i < len - 1)
+		{
+			if (arr[i] > arr[i + 1])
+			{
+				tmp = arr[i];
+				arr[i] = arr[i + 1];
+				arr[i + 1] = tmp;
+				swapped = 1;
+			}
+			i++;
+		}
+	}
+
+}
+
 int	main(int ac, char **av)
 {
 	int		len;
-	int		*used;
 	char	*res;
+	int		*used;
 
 	if (ac != 2 || av[1][0] == '\0')
-		return (puts("Error: invalid arguments."), 1);
+		return (1);
 	len = ft_strlen(av[1]);
-	used = malloc(sizeof(int) * len);
 	res = malloc(sizeof(char) * len + 1);
-	sort_str(av[1], len);
+	used = malloc(sizeof(int) * len);
 	init_arr(used, res, len);
-	permutation(av[1], res, used, len, 0);
-	free(used);
+	sort_arr(av[1], len);
+	permutation(av[1], used, res, len, 0);
 	free(res);
+	free(used);
 	return (0);
 }
