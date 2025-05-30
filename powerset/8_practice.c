@@ -6,7 +6,7 @@
 /*   By: emurillo <emurillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 14:07:38 by emurillo          #+#    #+#             */
-/*   Updated: 2025/05/29 15:06:54 by emurillo         ###   ########.fr       */
+/*   Updated: 2025/05/29 19:30:22 by emurillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int	is_numeric(char *s)
 	i = 0;
 	while (s[i])
 	{
+		if(s[i] == '-')
+			i++;
 		if (s[i] < '0' || s[i] > '9')
 			return (0);
 		i++;
@@ -120,13 +122,14 @@ void print_set(int *subset, int len)
 
 void	powerset(int *set, int n, int size, int sum, int idx, int *subset, int len)
 {
-	if (sum == n)
+	if (idx == size)
 	{
-		print_set(subset, len);
+		if (sum == n)
+		{
+			print_set(subset, len);
+		}
 		return ;
 	}
-	if (sum > n || idx >= size)
-		return ;
 	subset[len] = set[idx];
 	powerset(set, n, size, sum + set[idx], idx + 1, subset, len + 1);
 	powerset(set, n, size, sum, idx + 1, subset, len);
